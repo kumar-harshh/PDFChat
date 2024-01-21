@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_lottie import st_lottie
 import PyPDF2 as pdf
 from langchain.text_splitter import CharacterTextSplitter as ct
 from langchain.embeddings.cohere import CohereEmbeddings
@@ -7,6 +8,7 @@ from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from langchain_community.llms import Cohere
 from chatbot_style import css, bot_template, user_template
+import json
 import os
 from dotenv import load_dotenv
 
@@ -27,6 +29,10 @@ def get_conversation_chain(vector_store):
 
 st.title("Chat with multiple PDFs 👋🏻")
 st.write("You Must Ensure that you have uploaded the PDF files before asking a question")
+with open('animation.json') as anim_source:
+    animation = json.load(anim_source)
+st_lottie(animation, 1, True, True, "high", 350, -200)
+
 question=st.text_input("Hi! How May I Help?")
 
 #Initialising Sesson States
